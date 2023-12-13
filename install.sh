@@ -58,7 +58,7 @@ fi
 # installation and configuration of odoo
 
 echo -e "\n---- Switching to odoo user ----\n"
-sudo -u odoo bash <<EOF
+ <<EOF
 
 sudo su - odoo 
 echo -e "\n---- cloning from github ----\n"
@@ -126,7 +126,7 @@ fi
 EOF
 # creating odoo.conf file 
 
-if sudo nano /etc/odoo.conf ; then
+if sudo touch /etc/odoo.conf ; then
     echo -e "\n---- new odoo.conf file has been created !!! ----\n"
 else
     echo -e "\n---- odoo.conf file creation has been failed !!! ----\n"
@@ -158,8 +158,8 @@ EOF
 echo -e "\n---- config file created successfully"
 
 # creating odoo service
-nano 
-if  sudo nano /etc/systemd/system/odoo.service ; then
+
+if  sudo touch /etc/systemd/system/odoo.service ; then
     echo -e "\n---- odoo system service file has been created !!! ----\n"
 else
     echo -e "\n---- odoo system service file creation has been failed !!! ----\n"
