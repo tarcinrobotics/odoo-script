@@ -4,67 +4,69 @@
 ################################################################################
 
 # updating server 
-echo -e "\n---- Updating Server ----"
+echo -e "\n---- Updating Server ----\n"
 
 sudo apt update
 sudo apt upgrade -y
 
 # installing pre-requisites packages 
-echo -e "\n---- Installing Pre-requisites ----"
+echo -e "\n---- Installing Pre-requisites ----\n"
 sudo apt install -y build-essential wget python3-dev python3-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
-echo -e "\n---- completed installing pre-requisites !!! ----"
+echo -e "\n---- completed installing pre-requisites !!! ----\n"
 
 # creating odoo user
 
-echo -e "\n---- Creating Odoo user ----"
+echo -e "\n---- Creating Odoo user ----\n"
 if sudo useradd -m -d /opt/odoo -U -r -s /bin/bash odoo ; then
-    echo -e "\n---- completed creating odoo user  !!! ----"
+    echo -e "\n---- completed creating odoo user  !!! ----\n"
 else
     echo "odoo user creation failed / the user already exists"
 fi
 
 # creating postgres sql user for odoo
 
-echo -e "\n---- Creating Postgresql user for user ----"
+echo -e "\n---- Creating Postgresql user for user ----\n"
 if sudo su - postgres -c 'createuser -s odoo'; then
-    echo -e "\n---- completed creating postgresql user !!! ----"
-else
-    echo -e "postgersql user creation failed !!!"
+    echo -e "\n---- completed creating postgresql user !!! ----\n"
+#else
+#    echo -e "postgersql user creation failed !!!"
 fi
 
 # installation of wkhtmltopdf    
 
 # downloading wkhtmltopdf
 
-echo -e "\n---- Installation of wkhtmltopdf ----"
-echo -e "\n\n---- Downloading wkhtmltopdf ----"
+echo -e "\n---- Installation of wkhtmltopdf ----\n"
+echo -e "\n\n---- Downloading wkhtmltopdf ----\n"
 
-if sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb ; then
-    echo -e "\n---- completed downloading wkhtmltopdf !!! ----"
-else
-    echo -e "\n---- failed downloading due to network issues !!! ---- "
-fi
+#if sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb ; then
+#    echo -e "\n---- completed downloading wkhtmltopdf !!! ----\n"
+#else
+#    echo -e "\n---- failed downloading due to network issues !!! ---- "
+#fi
 
 # installing wkhtmltopdf
 
-echo -e "\n---- installing wkhtmltopdf ----"
+#echo -e "\n---- installing wkhtmltopdf ----\n"
 
-if sudo apt install ./wkhtmltox_0.12.5-1.bionic_amd64.deb ; then
-    echo -e "\n---- completed installing wkhtmltopdf !!! ----"
+if sudo apt install wkhtmltopdf -y ; then
+    echo -e "\n---- completed installing wkhtmltopdf !!! ----\n"
 else
-    echo -e "\n---- failed installing wkhtmltopdf !!! ----"
+    echo -e "\n---- failed installing wkhtmltopdf !!! ----\n"
 fi
 
 # installation and configuration of odoo
 
+echo -e "\n---- Switching to odoo user ----\n"
+sudo -u odoo bash <<EOF
 
 sudo su - odoo 
-echo -e "\n---- cloning from github ----"
+echo -e "\n---- cloning from github ----\n"
 if git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo16/odoo ; then 
-    echo -e "\n---- successfully cloned from github !!! ----"
+    echo -e "\n---- successfully cloned from github !!! ----\n"
 else
-    echo -e "\n---- failed cloning from github !!! ----"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- failed cloning from github !!! ----\n"
+    echo -e "\n---- exiting from script !!! ----\n"
     exit
 fi
 
@@ -76,7 +78,7 @@ if source odoo-venv/bin/activate ; then
     echo "\n---- virtual environment activated successfully !!!"
 else
     echo "\n---- virtual environment failed !!!"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- exiting from script !!! ----\n"
     exit
 fi
 
@@ -88,48 +90,47 @@ if source pip3 install -r odoo/requirements.txt ; then
     echo "\n---- requirements installed successfully !!!"
 else
     echo "\n---- requirements installation failed !!!"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- exiting from script !!! ----\n"
     exit
 fi
 
 # deactivating the environment
 
 if deactivate ; then
-    echo -e "\n---- virtual environment deactivated and proceeding to next.... ----"
+    echo -e "\n---- virtual environment deactivated and proceeding to next.... ----\n"
 else
-    echo -e "\n---- virtual environment not deactivated !!! ----"
+    echo -e "\n---- virtual environment not deactivated !!! ----\n"
 fi
 
 # creating custom-addons
 
-echo -e "\n---- creating custom-addons directory----"
+echo -e "\n---- creating custom-addons directory----\n"
 if mkdir /opt/odoo/odoo-custom-addons ; then
-    echo -e "\n---- custom-addons directory has been created successfully !!! ----"
+    echo -e "\n---- custom-addons directory has been created successfully !!! ----\n"
 else
     echo -e "\n---- directory creation failed !!!"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- exiting from script !!! ----\n"
     exit
 fi
 
 # exiting from odoo user
 
-echo -e "\n---- exiting from odoo user ----"
+echo -e "\n---- exiting from odoo user ----\n"
 
 if exit ; then
-    echo -e "\n---- exited from odoo user !!! ----"
+    echo -e "\n---- exited from odoo user !!! ----\n"
 else
-    echo -e "\n---- exiting from odoo user failed !!! ----"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- exiting from odoo user failed !!! ----\n"
     exit
 fi
-
+EOF
 # creating odoo.conf file 
 
 if sudo nano /etc/odoo.conf ; then
-    echo -e "\n---- new odoo.conf file has been created !!! ----"
+    echo -e "\n---- new odoo.conf file has been created !!! ----\n"
 else
-    echo -e "\n---- odoo.conf file creation has been failed !!! ----"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- odoo.conf file creation has been failed !!! ----\n"
+    echo -e "\n---- exiting from script !!! ----\n"
     exit
 fi
 
@@ -159,10 +160,10 @@ echo -e "\n---- config file created successfully"
 # creating odoo service
 nano 
 if  sudo nano /etc/systemd/system/odoo.service ; then
-    echo -e "\n---- odoo system service file has been created !!! ----"
+    echo -e "\n---- odoo system service file has been created !!! ----\n"
 else
-    echo -e "\n---- odoo system service file creation has been failed !!! ----"
-    echo -e "\n---- exiting from script !!! ----"
+    echo -e "\n---- odoo system service file creation has been failed !!! ----\n"
+    echo -e "\n---- exiting from script !!! ----\n"
     exit
 fi
 
@@ -205,21 +206,21 @@ EOF
 echo -e "\n---- config file created successfully"
 
 else
-    echo -e "\n---- service file creation failed in odoo ----"
+    echo -e "\n---- service file creation failed in odoo ----\n"
 fi
 
 # updating the service list
 
-echo -e "\n----updating the service list----"
+echo -e "\n----updating the service list----\n"
 
 sudo systemctl daemon-reload
 
 # starting odoo 
 
 if sudo systemctl enable --now odoo ; then
-    echo -e "\n---- Odoo service has been added in startup----"
+    echo -e "\n---- Odoo service has been added in startup----\n"
 else
-    echo -e "\n---- odoo service failed in adding in startup----"
+    echo -e "\n---- odoo service failed in adding in startup----\n"
 fi
 
 
