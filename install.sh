@@ -143,7 +143,6 @@ if exit ; then
     echo -e "\n---- exited from odoo user !!! ----\n"
 else
     echo -e "\n---- exiting from odoo user failed !!! ----\n"
-    exit
 fi
 EOF
 # creating odoo.conf file 
@@ -151,9 +150,8 @@ EOF
 if sudo touch /etc/odoo.conf ; then
     echo -e "\n---- new odoo.conf file has been created !!! ----\n"
 else
-    echo -e "\n---- odoo.conf file creation has been failed !!! ----\n"
-    echo -e "\n---- exiting from script !!! ----\n"
-    exit
+    echo -e "\n---- odoo.conf file creation has been failed / file already exists !!! ----\n"
+   
 fi
 
 
