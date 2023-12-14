@@ -96,7 +96,7 @@ fi
 cd /opt/odoo
 python3 -m venv odoo-venv
 echo -e "\n---- activating virtual environment "
-if source odoo-venv/bin/activate ; then
+if source /opt/odoo/odoo-venv/bin/activate ; then
     echo "\n---- virtual environment activated successfully !!!"
 else
     echo "\n---- virtual environment failed !!!"
