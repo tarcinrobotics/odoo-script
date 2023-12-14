@@ -89,8 +89,7 @@ if git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo1
     echo -e "\n---- successfully cloned from github !!! ----\n"
 else
     echo -e "\n---- failed cloning from github !!! ----\n"
-    echo -e "\n---- exiting from script !!! ----\n"
-    exit
+   
 fi
 
 # configuring odoo
