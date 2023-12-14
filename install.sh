@@ -186,9 +186,8 @@ fi
 if  sudo touch /etc/systemd/system/odoo.service ; then
     echo -e "\n---- odoo system service file has been created !!! ----\n"
 else
-    echo -e "\n---- odoo system service file creation has been failed !!! ----\n"
-    echo -e "\n---- exiting from script !!! ----\n"
-    exit
+    echo -e "\n---- odoo system service file creation has been failed / file already exists!!! ----\n"
+
 fi
 
 
@@ -227,6 +226,7 @@ EOF ; then
         echo -e "\n---- service file created successfully ----\n"
 else
         echo -e "\n---- failed to create service file ----\n"
+fi
 # updating the service list
 
 echo -e "\n----updating the service list----\n"
@@ -240,5 +240,3 @@ if sudo systemctl enable --now odoo ; then
 else
     echo -e "\n---- odoo service failed in adding in startup----\n"
 fi
-
-
