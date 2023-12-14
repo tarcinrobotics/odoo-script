@@ -131,7 +131,6 @@ if mkdir /opt/odoo/odoo-custom-addons ; then
     echo -e "\n---- custom-addons directory has been created successfully !!! ----\n"
 else
     echo -e "\n---- directory creation failed !!!"
-   
 fi
 
 # exiting from odoo user
