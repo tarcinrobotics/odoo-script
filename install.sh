@@ -10,9 +10,9 @@ service_file = "/etc/systemd/system/odoo.service"
 # updating server 
 echo -e "\n---- Updating Server ----\n"
 
-sudo apt update
+#sudo apt update
 
-sudo apt upgrade -y
+#sudo apt upgrade -y
 
 # creating and giving permission directories
 
@@ -21,19 +21,19 @@ if sudo mkdir -p /opt/odoo16/odoo ; then
     echo "\n---- odoo directory has been created ----\n"
 else
     echo "\n---- Failed to create the odoo directory !!! ----\n"
-
+fi
 # giving permission to dir
 if sudo chmod u+w /opt/odoo16 ; then
     echo "\n---- successfully given permission to odoo directory ----\n"
 else
     echo "\n---- Failed to create the odoo directory !!! ----\n"
-
+fi
 # giving permission to odoo user
 if sudo chown -R odoo /opt/odoo16 ; then
     echo "\n---- giving permission to odoo user ----\n"
 else
     echo "\n---- Failed to give permission to odoo user ----\n"
-
+fi
 # installing pre-requisites packages 
 echo -e "\n---- Installing Pre-requisites ----\n"
 sudo apt install -y build-essential wget python3-dev python3-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
