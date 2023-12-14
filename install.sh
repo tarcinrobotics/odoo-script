@@ -3,6 +3,11 @@
 # Author       : vigneshpandian
 ################################################################################
 
+# declaration of variables for location storage
+conf_file = "/etc/odoo.conf"
+service_file = "/etc/systemd/system/odoo.service"
+
+
 # updating server 
 echo -e "\n---- Updating Server ----\n"
 
@@ -58,9 +63,9 @@ fi
 # installation and configuration of odoo
 
 echo -e "\n---- Switching to odoo user ----\n"
- <<EOF
+sudo su - odoo  <<EOF
 
-sudo su - odoo 
+
 echo -e "\n---- cloning from github ----\n"
 if git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo16/odoo ; then 
     echo -e "\n---- successfully cloned from github !!! ----\n"
@@ -134,7 +139,6 @@ else
     exit
 fi
 
-conf_file = "/etc/odoo.conf"
 
 # adding contents to the file
 cat <<EOF >"$conf_file"
@@ -155,7 +159,7 @@ db_password = odoo
 addons_path = /opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons
 EOF
 
-echo -e "\n---- config file created successfully"
+echo -e "\n---- config file created successfully ----\n"
 
 # creating odoo service
 
@@ -167,12 +171,12 @@ else
     exit
 fi
 
-service_file = "/etc/systemd/system/odoo.service"
+
 
 
 
 # adding contents to the file
-if cat <<EOF >"$conf_file" ; then 
+cat <<EOF >"$service_file"  
 
 [Unit]
 
@@ -204,10 +208,6 @@ WantedBy=multi-user.target
 EOF
 
 echo -e "\n---- config file created successfully"
-
-else
-    echo -e "\n---- service file creation failed in odoo ----\n"
-fi
 
 # updating the service list
 
