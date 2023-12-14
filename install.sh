@@ -7,7 +7,6 @@
 conf_file = "/etc/odoo.conf"
 service_file = "/etc/systemd/system/odoo.service"
 
-
 # updating server 
 echo -e "\n---- Updating Server ----\n"
 
@@ -110,7 +109,7 @@ fi
 pip3 install wheel
 
 # installing odoo-requirements.txt file
-if source pip3 install -r odoo/requirements.txt ; then
+if source pip3 install -r /opt/odoo16/odoo/requirements.txt ; then
     echo "\n---- requirements installed successfully !!!"
 else
     echo "\n---- requirements installation failed !!!"
