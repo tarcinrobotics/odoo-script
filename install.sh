@@ -200,7 +200,7 @@ EOF
 
 
 # adding contents to the file
-if echo "$config_content" > "$config_file" ; then
+if sudo echo "$config_content" > "$config_file" ; then
     echo -e "\n---- config file created successfully ----\n"
 else
     echo -e "\n---- failed to create odoo.conf file ----\n"
@@ -216,7 +216,7 @@ fi
 
 # adding contents to the file
 
-if echo "$service_content" > "$service_file"  ; then
+if sudo echo "$service_content" > "$service_file"  ; then
         echo -e "\n---- service file created successfully ----\n"
 else
         echo -e "\n---- failed to create service file ----\n"
