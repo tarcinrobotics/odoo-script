@@ -8,12 +8,12 @@ conf_file="/etc/odoo.conf"
 service_file="/etc/systemd/system/odoo.service"
 
 config_content="[options]
-admin_passwd = odoo
-db_host = localhost
-db_port = 5432
-db_user = odoo
-db_password = odoo
-addons_path = /opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons"
+admin_passwd=odoo
+db_host=localhost
+db_port=5432
+db_user=odoo
+db_password=odoo
+addons_path=/opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons"
 
 service_content="[Unit]
 Description=Odoo
