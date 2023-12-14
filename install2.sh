@@ -74,3 +74,22 @@ if sudo systemctl enable --now odoo ; then
 else
     echo -e "\n---- odoo service failed in adding in startup----\n"
 fi
+
+if sudo systemctl daemon-reload ; then
+    echo "\n--- Daemon Reloaded successfully !!! ---\n"
+else
+    echo "\n--- failed to reload daemon !!! ---\n"
+fi
+
+if sudo systemctl start odoo.service ; then
+    echo "\n--- odoo service started successfully !!! ---\n"
+else
+    echo "\n--- failed to start odoo service !!! ---\n"
+fi
+
+if sudo systemctl status odoo.service ; then
+    echo "\n--- odoo status !!! ---\n"
+else
+    echo "\n--- there is no service named odoo !!! ---\n"
+fi
+
