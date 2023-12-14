@@ -7,49 +7,28 @@
 conf_file="/etc/odoo.conf"
 service_file="/etc/systemd/system/odoo.service"
 
-config_content="
-[options]
-
-; Database operations password:
-
-admin_passwd = odoo
-
-db_host = localhost
-
-db_port = 5432
-
-db_user = odoo
-
-db_password = odoo
-
-addons_path = /opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons"
+config_content="[options]
+admin_passwd=odoo
+db_host=False
+db_port=False
+db_user=odoo
+db_password=False
+addons_path=/opt/odoo16/odoo/addons,/opt/odoo/odoo-custom-addons
+xmlrpc_port=8069"
 
 service_content="[Unit]
-
 Description=Odoo
-
 Requires=postgresql.service
-
 After=network.target postgresql.service
-
 [Service]
-
 Type=simple
-
 SyslogIdentifier=odoo
-
 PermissionsStartOnly=true
-
 User=odoo
-
 Group=odoo
-
-ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo/odoo/odoo-bin -c /etc/odoo.conf
-
+ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo16/odoo/odoo-bin -c /etc/odoo.conf
 StandardOutput=journal+console
-
 [Install]
-
 WantedBy=multi-user.target"
 
 
@@ -190,3 +169,50 @@ else
     echo -e "\n---- exiting from odoo user failed !!! ----\n"
 fi 
 EOF
+
+# adding contents to the config file
+if  echo "$config_content" | sudo tee "$conf_file" > /dev/null ; then
+    echo -e "\n---- config file created successfully ----\n"
+else
+    echo -e "\n---- failed to create odoo.conf file ----\n"
+fi
+
+# adding contents to the service file
+
+if echo "$service_content" | sudo tee "$service_file" > /dev/null  ; then
+        echo -e "\n---- service file created successfully ----\n"
+else
+        echo -e "\n---- failed to create service file ----\n"
+fi
+
+# starting odoo 
+
+if sudo systemctl enable --now odoo ; then
+    echo -e "\n---- Odoo service has been added in startup----\n"
+else
+    echo -e "\n---- odoo service failed in adding in startup----\n"
+fi
+
+if sudo systemctl daemon-reload ; then
+    echo "\n--- Daemon Reloaded successfully !!! ---\n"
+else
+    echo "\n--- failed to reload daemon !!! ---\n"
+fi
+
+if sudo systemctl start odoo.service ; then
+    echo "\n--- odoo service started successfully !!! ---\n"
+else
+    echo "\n--- failed to start odoo service !!! ---\n"
+fi
+
+if sudo systemctl status odoo.service ; then
+    echo "\n--- odoo status !!! ---\n"
+else
+    echo "\n--- there is no service named odoo !!! ---\n"
+fi
+
+echo "\n################################################################################\n
+# Organization : Tarcin Robotic LLP\n
+# Author       : vigneshpandian\n
+################################################################################\n
+ODOO16 has been installed successfully !!! "
