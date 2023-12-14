@@ -12,10 +12,28 @@ service_file = "/etc/systemd/system/odoo.service"
 echo -e "\n---- Updating Server ----\n"
 
 sudo apt update
+
 sudo apt upgrade -y
-sudo mkdir -p /opt/odoo16/odoo
-sudo chmod u+w /opt/odoo16
-sudo chown -R odoo /opt/odoo16
+
+# creating and giving permission directories
+
+# creating dir
+if sudo mkdir -p /opt/odoo16/odoo ; then
+    echo "\n---- odoo directory has been created ----\n"
+else
+    echo "\n---- Failed to create the odoo directory !!! ----\n"
+
+# giving permission to dir
+if sudo chmod u+w /opt/odoo16 ; then
+    echo "\n---- successfully given permission to odoo directory ----\n"
+else
+    echo "\n---- Failed to create the odoo directory !!! ----\n"
+
+# giving permission to odoo user
+if sudo chown -R odoo /opt/odoo16 ; then
+    echo "\n---- giving permission to odoo user ----\n"
+else
+    echo "\n---- Failed to give permission to odoo user ----\n"
 
 # installing pre-requisites packages 
 echo -e "\n---- Installing Pre-requisites ----\n"
@@ -25,6 +43,7 @@ echo -e "\n---- completed installing pre-requisites !!! ----\n"
 # creating odoo user
 
 echo -e "\n---- Creating Odoo user ----\n"
+
 if sudo useradd -m -d /opt/odoo -U -r -s /bin/bash odoo ; then
     echo -e "\n---- completed creating odoo user  !!! ----\n"
 else
@@ -34,10 +53,11 @@ fi
 # creating postgres sql user for odoo
 
 echo -e "\n---- Creating Postgresql user for user ----\n"
+
 if sudo su - postgres -c 'createuser -s odoo'; then
     echo -e "\n---- completed creating postgresql user !!! ----\n"
-#else
-#    echo -e "postgersql user creation failed !!!"
+else
+    echo -e "postgersql user creation failed !!!"
 fi
 
 # installation of wkhtmltopdf    
@@ -46,12 +66,6 @@ fi
 
 echo -e "\n---- Installation of wkhtmltopdf ----\n"
 echo -e "\n\n---- Downloading wkhtmltopdf ----\n"
-
-#if sudo wget https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb ; then
-#    echo -e "\n---- completed downloading wkhtmltopdf !!! ----\n"
-#else
-#    echo -e "\n---- failed downloading due to network issues !!! ---- "
-#fi
 
 # installing wkhtmltopdf
 
