@@ -2,7 +2,7 @@
 # Organization : Tarcin Robotic LLP
 # Author       : vigneshpandian
 ################################################################################
-
+#!/bin/bash
 # declaration of variables for location storage
 conf_file = "/etc/odoo.conf"
 service_file = "/etc/systemd/system/odoo.service"
@@ -13,6 +13,9 @@ echo -e "\n---- Updating Server ----\n"
 
 sudo apt update
 sudo apt upgrade -y
+sudo mkdir -p /opt/odoo16/odoo
+sudo chmod u+w /opt/odoo16
+sudo chown -R odoo /opt/odoo16
 
 # installing pre-requisites packages 
 echo -e "\n---- Installing Pre-requisites ----\n"
@@ -67,9 +70,7 @@ sudo su - odoo  <<EOF
 
 
 echo -e "\n---- cloning from github ----\n"
-sudo mkdir -p /opt/odoo16/odoo
-sudo chmod u+w /opt/odoo16
-sudo chown -R odoo /opt/odoo16
+
 
 if git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo16/odoo ; then 
     echo -e "\n---- successfully cloned from github !!! ----\n"
