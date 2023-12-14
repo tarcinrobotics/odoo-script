@@ -158,7 +158,8 @@ fi
 
 
 # adding contents to the file
-cat <<EOF >"$conf_file"
+if cat <<EOF >"$conf_file"
+
 [options]
 
 ; Database operations password:
@@ -174,9 +175,11 @@ db_user = odoo
 db_password = odoo
 
 addons_path = /opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons
-EOF
-
-echo -e "\n---- config file created successfully ----\n"
+EOF ; then
+    echo -e "\n---- config file created successfully ----\n"
+else
+    echo -e "\n---- failed to create odoo.conf file ----\n"
+fi
 
 # creating odoo service
 
@@ -189,11 +192,9 @@ else
 fi
 
 
-
-
-
 # adding contents to the file
-cat <<EOF >"$service_file"  
+
+if cat <<EOF >"$service_file"  
 
 [Unit]
 
@@ -222,10 +223,10 @@ StandardOutput=journal+console
 [Install]
 
 WantedBy=multi-user.target
-EOF
-
-echo -e "\n---- config file created successfully"
-
+EOF ; then
+        echo -e "\n---- service file created successfully ----\n"
+else
+        echo -e "\n---- failed to create service file ----\n"
 # updating the service list
 
 echo -e "\n----updating the service list----\n"
