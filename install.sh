@@ -59,7 +59,8 @@ echo -e "\n---- Updating Server ----\n"
 #sudo apt update
 
 #sudo apt upgrade -y
-
+sudo touch /etc/systemd/system/odoo.service
+sudo touch /etc/odoo.conf
 # creating and giving permission directories
 
 # creating dir
@@ -191,12 +192,11 @@ fi
 EOF
 # creating odoo.conf file 
 
-if sudo touch /etc/odoo.conf ; then
-    echo -e "\n---- new odoo.conf file has been created !!! ----\n"
-else
-    echo -e "\n---- odoo.conf file creation has been failed / file already exists !!! ----\n"
-   
-fi
+#if sudo touch /etc/odoo.conf ; then
+#    echo -e "\n---- new odoo.conf file has been created !!! ----\n"
+#else
+#    echo -e "\n---- odoo.conf file creation has been failed / file already exists !!! ----\n"   
+#fi
 
 
 # adding contents to the file
@@ -207,11 +207,11 @@ else
 fi
 
 # creating odoo service
-if  sudo touch /etc/systemd/system/odoo.service ; then
-    echo -e "\n---- odoo system service file has been created !!! ----\n"
-else
-    echo -e "\n---- odoo system service file creation has been failed / file already exists!!! ----\n"
-fi
+#if  sudo touch /etc/systemd/system/odoo.service ; then
+#    echo -e "\n---- odoo system service file has been created !!! ----\n"
+#else
+#    echo -e "\n---- odoo system service file creation has been failed / file already exists!!! ----\n"
+#fi
 
 
 # adding contents to the file
