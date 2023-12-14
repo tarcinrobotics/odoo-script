@@ -7,8 +7,7 @@
 conf_file="/etc/odoo.conf"
 service_file="/etc/systemd/system/odoo.service"
 
-config_content="
-[options]
+config_content="[options]
 ; Database operations password:
 admin_passwd = odoo
 db_host = localhost
