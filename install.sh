@@ -67,6 +67,10 @@ sudo su - odoo  <<EOF
 
 
 echo -e "\n---- cloning from github ----\n"
+sudo mkdir -p /opt/odoo16/odoo
+sudo chmod u+w /opt/odoo16
+sudo chown -R odoo /opt/odoo16
+
 if git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo16/odoo ; then 
     echo -e "\n---- successfully cloned from github !!! ----\n"
 else
