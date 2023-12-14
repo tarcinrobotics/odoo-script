@@ -108,7 +108,7 @@ fi
 pip3 install wheel
 
 # installing odoo-requirements.txt file
-if source pip3 install -r /opt/odoo16/odoo/requirements.txt ; then
+if pip3 install -r /opt/odoo16/odoo/requirements.txt ; then
     echo "\n---- requirements installed successfully !!!"
 else
     echo "\n---- requirements installation failed !!!"
