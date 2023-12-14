@@ -9,47 +9,27 @@ service_file="/etc/systemd/system/odoo.service"
 
 config_content="
 [options]
-
 ; Database operations password:
-
 admin_passwd = odoo
-
 db_host = localhost
-
 db_port = 5432
-
 db_user = odoo
-
 db_password = odoo
-
 addons_path = /opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons"
 
 service_content="[Unit]
-
 Description=Odoo
-
 Requires=postgresql.service
-
 After=network.target postgresql.service
-
 [Service]
-
 Type=simple
-
 SyslogIdentifier=odoo
-
 PermissionsStartOnly=true
-
 User=odoo
-
 Group=odoo
-
 ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo/odoo/odoo-bin -c /etc/odoo.conf
-
 StandardOutput=journal+console
-
 [Install]
-
 WantedBy=multi-user.target"
 
 # creating odoo.conf file 
