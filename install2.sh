@@ -13,7 +13,8 @@ db_host=localhost
 db_port=5432
 db_user=odoo
 db_password=odoo
-addons_path=/opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons"
+addons_path=/opt/odoo/odoo/addons,/opt/odoo/odoo-custom-addons
+xmlrpc_port=8069"
 
 service_content="[Unit]
 Description=Odoo
