@@ -40,7 +40,7 @@ WantedBy=multi-user.target"
 
 
 # adding contents to the file
-if  echo "$config_content" | sudo tee "$config_file" > /dev/null ; then
+if  echo "$config_content" | sudo tee "$conf_file" > /dev/null ; then
     echo -e "\n---- config file created successfully ----\n"
 else
     echo -e "\n---- failed to create odoo.conf file ----\n"
