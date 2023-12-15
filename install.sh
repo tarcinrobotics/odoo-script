@@ -4,6 +4,7 @@
 ################################################################################
 #!/bin/bash
 # declaration of variables for location storage
+
 conf_file="/etc/odoo.conf"
 service_file="/etc/systemd/system/odoo.service"
 
@@ -30,7 +31,11 @@ ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo16/odoo/odoo-bin -c /etc/odoo
 StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target"
-
+echo "################################################################################"
+echo "# Organization : Tarcin Robotic LLP"
+echo "# Author       : vigneshpandian"
+echo "################################################################################"
+echo "ODOO16 has been installed successfully !!! "
 
 # updating server 
 echo    "---- UPDATING SERVER ----"
@@ -225,8 +230,4 @@ else
     echo "--- there is no service named odoo !!! ---"
 fi
 
-echo "################################################################################
-# Organization : Tarcin Robotic LLP
-# Author       : vigneshpandian
-################################################################################
-ODOO16 has been installed successfully !!! "
+
