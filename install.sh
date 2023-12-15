@@ -54,12 +54,7 @@ if sudo chmod u+w /opt/odoo16 ; then
 else
     echo "\n---- Failed to create the odoo directory !!! ----\n"
 fi
-# giving permission to odoo user
-if sudo chown -R odoo /opt/odoo16 ; then
-    echo "\n---- giving permission to odoo user ----\n"
-else
-    echo "\n---- Failed to give permission to odoo user ----\n"
-fi
+
 # installing pre-requisites packages 
 echo -e "\n---- Installing Pre-requisites ----\n"
 sudo apt install -y build-essential wget python3-dev python3-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
@@ -75,6 +70,12 @@ else
     echo "odoo user creation failed / the user already exists"
 fi
 
+# giving permission to odoo user
+if sudo chown -R odoo /opt/odoo16 ; then
+    echo "\n---- giving permission to odoo user ----\n"
+else
+    echo "\n---- Failed to give permission to odoo user ----\n"
+fi
 # creating postgres sql user for odoo
 
 echo -e "\n---- Creating Postgresql user for user ----\n"
