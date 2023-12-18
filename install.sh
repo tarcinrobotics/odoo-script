@@ -35,7 +35,6 @@ echo "##########################################################################
 echo "# Organization : Tarcin Robotic LLP"
 echo "# Author       : vigneshpandian"
 echo "################################################################################"
-echo "ODOO16 has been installed successfully !!! "
 
 # updating server 
 echo    "---- UPDATING SERVER ----"
@@ -224,10 +223,7 @@ else
     echo "--- failed to start odoo service !!! ---"
 fi
 
-if sudo systemctl status odoo.service ; then
-    echo "--- odoo status !!! ---"
-else
-    echo "--- there is no service named odoo !!! ---"
-fi
+echo "ODOO16 has been installed successfully !!! "
+
 
 
