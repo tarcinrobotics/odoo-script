@@ -14,7 +14,7 @@ db_host=False
 db_port=False
 db_user=odoo
 db_password=False
-addons_path=/opt/odoo16/odoo/addons,/opt/odoo/odoo-custom-addons
+addons_path=/opt/odoo17/odoo/addons,/opt/odoo/odoo-custom-addons
 xmlrpc_port=8069"
 
 service_content="[Unit]
@@ -27,7 +27,7 @@ SyslogIdentifier=odoo
 PermissionsStartOnly=true
 User=odoo
 Group=odoo
-ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo16/odoo/odoo-bin -c /etc/odoo.conf
+ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo17/odoo/odoo-bin -c /etc/odoo.conf
 StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target"
@@ -63,13 +63,13 @@ fi
 # creating and giving permission directories
 echo "---- GIVING PERMISSIONS ----"
 # creating dir
-if sudo mkdir -p /opt/odoo16/odoo ; then
+if sudo mkdir -p /opt/odoo17/odoo ; then
     echo "---- odoo directory has been created ----"
 else
     echo "---- Failed to create the odoo directory / directory already exists !!! ----"
 fi
 # giving permission to dir
-if sudo chmod u+w /opt/odoo16 ; then
+if sudo chmod u+w /opt/odoo17 ; then
     echo "---- successfully given permission to odoo directory ----"
 else
     echo "---- Failed to create the odoo directory !!! ----"
@@ -77,7 +77,7 @@ fi
 
 # installing pre-requisites packages 
 echo    "---- INSTALLING PRE-REQUISITES ----"
-sudo apt install -y build-essential wget python3-dev python3-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
+sudo apt install -y build-essential python3.10 wget python3.10-dev python3-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
 echo    "---- completed installing pre-requisites !!! ----"
 
 # creating odoo user
@@ -91,7 +91,7 @@ else
 fi
 
 # giving permission to odoo user
-if sudo chown -R odoo /opt/odoo16 ; then
+if sudo chown -R odoo /opt/odoo17 ; then
     echo "---- giving permission to odoo user ----"
 else
     echo "---- Failed to give permission to odoo user ----"
@@ -126,7 +126,7 @@ sudo su - odoo  <<EOF
 echo    "---- cloning from github ----"
 
 
-if git clone https://www.github.com/odoo/odoo --depth 1 --branch 16.0 /opt/odoo16/odoo ; then 
+if git clone https://github.com/tarcinrobotics/nirvagi-dev --depth 1 --branch main /opt/odoo17/odoo ; then 
     echo    "---- successfully cloned from github !!! ----"
 else
     echo    "---- failed cloning from github / cloned files already present !!! ----"
@@ -148,7 +148,7 @@ fi
 pip3 install wheel
 
 # installing odoo-requirements.txt file
-if pip3 install -r /opt/odoo16/odoo/requirements.txt ; then
+if pip3 install -r /opt/odoo17/odoo/requirements.txt ; then
     echo "---- requirements installed successfully !!!"
 else
     echo "---- requirements installation failed !!!"
@@ -223,7 +223,4 @@ else
     echo "--- failed to start odoo service !!! ---"
 fi
 
-echo "ODOO16 has been installed successfully !!! "
-
-
-
+echo "odoo17 has been installed successfully !!! "
