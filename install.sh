@@ -14,7 +14,7 @@ db_host=False
 db_port=False
 db_user=odoo
 db_password=False
-addons_path=/opt/odoo17/odoo/addons,/opt/odoo/odoo-custom-addons
+addons_path=/opt/odoo17/odoo/addons,/opt/odoo17/odoo/odoo-custom-addons
 xmlrpc_port=8069"
 
 service_content="[Unit]
@@ -27,7 +27,7 @@ SyslogIdentifier=odoo
 PermissionsStartOnly=true
 User=odoo
 Group=odoo
-ExecStart=/opt/odoo/odoo-venv/bin/python3.10 /opt/odoo17/odoo/odoo-bin -c /etc/odoo.conf
+ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo17/odoo/odoo-bin -c /etc/odoo.conf
 StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target"
@@ -134,7 +134,7 @@ fi
 
 # configuring odoo
 cd /opt/odoo
-python3.10 -m venv odoo-venv
+python3 -m venv odoo-venv
 echo    "---- activating virtual environment "
 if source /opt/odoo/odoo-venv/bin/activate ; then
     echo "---- virtual environment activated successfully !!!"
