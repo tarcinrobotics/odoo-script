@@ -27,7 +27,7 @@ SyslogIdentifier=odoo
 PermissionsStartOnly=true
 User=odoo
 Group=odoo
-ExecStart=/opt/odoo/odoo-venv/bin/python3 /opt/odoo17/odoo/odoo-bin -c /etc/odoo.conf
+ExecStart=/opt/odoo/odoo-venv/bin/python3.10 /opt/odoo17/odoo/odoo-bin -c /etc/odoo.conf
 StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target"
@@ -134,7 +134,7 @@ fi
 
 # configuring odoo
 cd /opt/odoo
-python3 -m venv odoo-venv
+python3.10 -m venv odoo-venv
 echo    "---- activating virtual environment "
 if source /opt/odoo/odoo-venv/bin/activate ; then
     echo "---- virtual environment activated successfully !!!"
