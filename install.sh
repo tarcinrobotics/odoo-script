@@ -5,16 +5,16 @@
 #!/bin/bash
 # declaration of variables for location storage
 
-conf_file="/etc/nirvagi.conf"
-service_file="/etc/systemd/system/nirvagi.service"
+conf_file="/etc/charge.conf"
+service_file="/etc/systemd/system/charge.service"
 
 config_content="[options]
-admin_passwd=nirvagi
+admin_passwd=charge
 db_host=False
 db_port=False
-db_user=nirvagi
+db_user=charge
 db_password=False
-addons_path=/opt/nirvagi/addons,/opt/nirvagi/custom-addons
+addons_path=/opt/charge/addons,/opt/charge/custom-addons
 xmlrpc_port=8069"
 
 service_content="[Unit]
@@ -25,9 +25,9 @@ After=network.target postgresql.service
 Type=simple
 SyslogIdentifier=odoo
 PermissionsStartOnly=true
-User=nirvagi
-Group=nirvagi
-ExecStart=/opt/nirvagi/nirvagi-venv/bin/python3 /opt/nirvagi/odoo-bin -c /etc/nirvagi.conf
+User=charge
+Group=charge
+ExecStart=/opt/charge/charge-venv/bin/python3 /opt/charge/odoo-bin -c /etc/charge.conf
 StandardOutput=journal+console
 [Install]
 WantedBy=multi-user.target"
@@ -48,31 +48,31 @@ fi
 # creating service and config files for odoo
 echo "---- CREATING CONFIG AND SERVICE FILES FOR NIRVAGI ----"
 # service file
-if sudo touch /etc/systemd/system/nirvagi.service ; then
-    echo "---- nirvagi.service file has been created !!! ----"
+if sudo touch /etc/systemd/system/charge.service ; then
+    echo "---- charge.service file has been created !!! ----"
 else
-    echo "---- failed to create the nirvagi.service file !!! ----"
+    echo "---- failed to create the charge.service file !!! ----"
 fi
 
 # conf file
-if sudo touch /etc/nirvagi.conf ; then 
-    echo "---- nirvagi.conf file has been created !!! ----"
+if sudo touch /etc/charge.conf ; then 
+    echo "---- charge.conf file has been created !!! ----"
 else
-    echo "---- failed to create the nirvagi.conf file ----"
+    echo "---- failed to create the charge.conf file ----"
 fi
 # creating and giving permission directories
 echo "---- GIVING PERMISSIONS ----"
 # creating dir
-if sudo mkdir -p /opt/nirvagi ; then
-    echo "---- nirvagi directory has been created ----"
+if sudo mkdir -p /opt/charge ; then
+    echo "---- charge directory has been created ----"
 else
     echo "---- Failed to create the odoo directory / directory already exists !!! ----"
 fi
 # giving permission to dir
-if sudo chmod u+w /opt/nirvagi ; then
-    echo "---- successfully given permission to nirvagi directory ----"
+if sudo chmod u+w /opt/charge ; then
+    echo "---- successfully given permission to charge directory ----"
 else
-    echo "---- Failed to create the nirvagi directory !!! ----"
+    echo "---- Failed to create the charge directory !!! ----"
 fi
 
 # installing pre-requisites packages 
@@ -82,25 +82,25 @@ echo    "---- completed installing pre-requisites !!! ----"
 
 # creating odoo user
 
-echo    "---- Creating nirvagi user ----"
+echo    "---- Creating charge user ----"
 
-if sudo useradd -m -d /opt/nirvagi -U -r -s /bin/bash nirvagi ; then
-    echo    "---- completed creating nirvagi user  !!! ----"
+if sudo useradd -m -d /opt/charge -U -r -s /bin/bash charge ; then
+    echo    "---- completed creating charge user  !!! ----"
 else
-    echo "nirvagi user creation failed / the user already exists"
+    echo "charge user creation failed / the user already exists"
 fi
 
 # giving permission to odoo user
-if sudo chown -R nirvagi /opt/nirvagi ; then
-    echo "---- giving permission to nirvagi user ----"
+if sudo chown -R charge /opt/charge ; then
+    echo "---- giving permission to charge user ----"
 else
-    echo "---- Failed to give permission to nirvagi user ----"
+    echo "---- Failed to give permission to charge user ----"
 fi
 # creating postgres sql user for odoo
 
 echo    "---- Creating Postgresql user for user ----"
 
-if sudo su - postgres -c 'createuser -s nirvagi'; then
+if sudo su - postgres -c 'createuser -s charge'; then
     echo    "---- completed creating postgresql user !!! ----"
 else
     echo    "postgersql user creation failed !!!"
@@ -120,23 +120,23 @@ fi
 # installation and configuration of odoo
 
 echo    "---- SWITCHING TO NIRVAGI USER ----"
-sudo su - nirvagi  <<EOF
+sudo su - charge  <<EOF
 
 
 echo    "---- cloning from github ----"
 
 
-if git clone https://github.com/tarcinrobotics/nirvagi-dev --depth 1 --branch main /opt/nirvagi ; then 
+if git clone https://github.com/tarcinrobotics/charge-dev --depth 1 --branch main /opt/charge ; then 
     echo    "---- successfully cloned from github !!! ----"
 else
     echo    "---- failed cloning from github / cloned files already present !!! ----"
 fi
 
 # configuring odoo
-cd /opt/nirvagi
-python3 -m venv nirvagi-venv
+cd /opt/charge
+python3 -m venv charge-venv
 echo    "---- activating virtual environment "
-if source /opt/nirvagi/nirvagi-venv/bin/activate ; then
+if source /opt/charge/charge-venv/bin/activate ; then
     echo "---- virtual environment activated successfully !!!"
 else
     echo "---- virtual environment failed !!!"
@@ -148,7 +148,7 @@ fi
 pip3 install wheel
 
 # installing odoo-requirements.txt file
-if pip3 install -r /opt/nirvagi/requirements.txt ; then
+if pip3 install -r /opt/charge/requirements.txt ; then
     echo "---- requirements installed successfully !!!"
 else
     echo "---- requirements installation failed !!!"
@@ -167,7 +167,7 @@ fi
 # creating custom-addons
 
 echo    "---- creating custom-addons directory----"
-if mkdir /opt/nirvagi/custom-addons ; then
+if mkdir /opt/charge/custom-addons ; then
     echo    "---- custom-addons directory has been created successfully !!! ----"
 else
     echo    "---- directory creation failed / directory already available !!!"
@@ -190,7 +190,7 @@ echo "---- WRITING CONFIG AND SERVICE FILES ----"
 if  echo "$config_content" | sudo tee "$conf_file" > /dev/null ; then
     echo    "---- config file created successfully ----"
 else
-    echo    "---- failed to create nirvagi.conf file ----"
+    echo    "---- failed to create charge.conf file ----"
 fi
 
 # adding contents to the service file
@@ -205,7 +205,7 @@ echo "---- file writing completed !!!! ----"
 # starting odoo 
 
 echo "---- STARTING ODOO SERVICE ----"
-if sudo systemctl enable --now nirvagi ; then
+if sudo systemctl enable --now charge ; then
     echo    "---- Nirvagi service has been added in startup----"
 else
     echo    "---- Nirvagi service failed in adding in startup----"
@@ -217,10 +217,10 @@ else
     echo "--- failed to reload daemon !!! ---"
 fi
 
-if sudo systemctl start nirvagi.service ; then
-    echo "--- nirvagi service started successfully !!! ---"
+if sudo systemctl start charge.service ; then
+    echo "--- charge service started successfully !!! ---"
 else
-    echo "--- failed to start nirvagi service !!! ---"
+    echo "--- failed to start charge service !!! ---"
 fi
 
-echo "*** nirvagi has been installed successfully !!! ***"
+echo "*** charge has been installed successfully !!! ***"
