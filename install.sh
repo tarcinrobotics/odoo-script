@@ -126,7 +126,7 @@ sudo su - charge  <<EOF
 echo    "---- cloning from github ----"
 
 
-if git clone https://github.com/tarcinrobotics/charge-dev --depth 1 --branch main /opt/charge ; then 
+if git clone https://github.com/tarcinrobotics/nirvagi-dev --depth 1 --branch main /opt/charge ; then 
     echo    "---- successfully cloned from github !!! ----"
 else
     echo    "---- failed cloning from github / cloned files already present !!! ----"
