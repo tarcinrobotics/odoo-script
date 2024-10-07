@@ -77,7 +77,7 @@ fi
 
 # installing pre-requisites packages 
 echo    "---- INSTALLING PRE-REQUISITES ----"
-sudo apt install -y build-essential python3.10 wget python3.10-dev python3-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
+sudo apt install -y build-essential python3.12 wget python3.12-dev python3.12-venv python3-wheel libfreetype6-dev libxml2-dev libzip-dev libldap2-dev libsasl2-dev python3-setuptools node-less libjpeg-dev zlib1g-dev libpq-dev libxslt1-dev libldap2-dev libtiff5-dev libjpeg8-dev libopenjp2-7-dev liblcms2-dev libwebp-dev libharfbuzz-dev libfribidi-dev libxcb1-dev postgresql
 echo    "---- completed installing pre-requisites !!! ----"
 
 # creating odoo user
@@ -126,7 +126,7 @@ sudo su - charge  <<EOF
 echo    "---- cloning from github ----"
 
 
-if git clone https://github.com/tarcinrobotics/nirvagi-dev --depth 1 --branch main /opt/charge ; then 
+if git clone https://github.com/odoo/odoo --depth 1 --branch 18.0 /opt/charge ; then 
     echo    "---- successfully cloned from github !!! ----"
 else
     echo    "---- failed cloning from github / cloned files already present !!! ----"
@@ -134,7 +134,7 @@ fi
 
 # configuring odoo
 cd /opt/charge
-python3 -m venv charge-venv
+python3.12 -m venv charge-venv
 echo    "---- activating virtual environment "
 if source /opt/charge/charge-venv/bin/activate ; then
     echo "---- virtual environment activated successfully !!!"
